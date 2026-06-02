@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "state_licenses",
+  "info": {
+    "singularName": "state-license",
+    "pluralName": "state-licenses",
+    "displayName": "State License",
+    "description": "States where Edi Shek is licensed to originate mortgages"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "stateName": {
+      "type": "string",
+      "required": true
+    },
+    "stateCode": {
+      "type": "string",
+      "required": true
+    },
+    "svgFile": {
+      "type": "string",
+      "required": true
+    },
+    "licenseNumber": {
+      "type": "string"
+    },
+    "company": {
+      "type": "enumeration",
+      "enum": ["EYWA", "ZAPA"],
+      "required": true
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}

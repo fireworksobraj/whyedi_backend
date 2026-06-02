@@ -1,0 +1,55 @@
+{
+  "kind": "collectionType",
+  "collectionName": "companies",
+  "info": {
+    "singularName": "company",
+    "pluralName": "companies",
+    "displayName": "Company",
+    "description": "Company profiles for the homepage"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "code": {
+      "type": "string",
+      "required": true
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "logoUrl": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "nmlsNumber": {
+      "type": "string"
+    },
+    "poweredBy": {
+      "type": "string"
+    },
+    "address": {
+      "type": "text"
+    },
+    "tollFree": {
+      "type": "string"
+    },
+    "cell": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "licenseText": {
+      "type": "text"
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}

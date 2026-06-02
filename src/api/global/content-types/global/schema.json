@@ -1,0 +1,123 @@
+{
+  "kind": "singleType",
+  "collectionName": "globals",
+  "info": {
+    "singularName": "global",
+    "pluralName": "globals",
+    "displayName": "Global Settings",
+    "description": "Site-wide settings: contact info, social links, company details"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "siteName": {
+      "type": "string",
+      "default": "Edi Shek Mortgage"
+    },
+    "phone": {
+      "type": "string",
+      "default": "+1-346-610-0555"
+    },
+    "email": {
+      "type": "string",
+      "default": "edi@eywamortgage.com"
+    },
+    "nmlsNumber": {
+      "type": "string",
+      "default": "216981"
+    },
+    "trecLicense": {
+      "type": "string",
+      "default": "9015996"
+    },
+    "facebookUrl": {
+      "type": "string"
+    },
+    "instagramUrl": {
+      "type": "string"
+    },
+    "linkedinUrl": {
+      "type": "string"
+    },
+    "tiktokUrl": {
+      "type": "string"
+    },
+    "crmUrlTx": {
+      "type": "string"
+    },
+    "crmUrlOther": {
+      "type": "string"
+    },
+    "eywaNmls": {
+      "type": "string",
+      "default": "1660690"
+    },
+    "eywaName": {
+      "type": "string",
+      "default": "EYWA Mortgage"
+    },
+    "eywaAddress": {
+      "type": "text",
+      "default": "5559 S Sossaman Rd, Bldg 1 Ste 101\nMesa, AZ 85212"
+    },
+    "eywaTollFree": {
+      "type": "string",
+      "default": "+1-888-886-1555"
+    },
+    "eywaCell": {
+      "type": "string",
+      "default": "+1-346-610-0555"
+    },
+    "eywaEmail": {
+      "type": "string",
+      "default": "edi@eywamortgage.com"
+    },
+    "eywaLicenseText": {
+      "type": "text",
+      "default": "Licensed in: AL, AZ (LO-2010950), CO, CT, FL (LO140551), LA, MO, OR, PA, TN, TX, CA (DFPI216981), VA & WA (MLO-216981)"
+    },
+    "zapaNmls": {
+      "type": "string",
+      "default": "357630"
+    },
+    "zapaName": {
+      "type": "string",
+      "default": "ZAPA Mortgage"
+    },
+    "zapaAddress": {
+      "type": "text",
+      "default": "1601 Industrial Blvd, Ste 3019\nSugar Land, TX 77478"
+    },
+    "zapaTollFree": {
+      "type": "string",
+      "default": "855-WHY-ZAPA"
+    },
+    "zapaCell": {
+      "type": "string",
+      "default": "+1-832-977-4499"
+    },
+    "zapaEmail": {
+      "type": "string",
+      "default": "rigel@zapamortgage.com"
+    },
+    "zapaLicenseText": {
+      "type": "string",
+      "default": "Licensed in: TX"
+    },
+    "webhookUrl": {
+      "type": "string"
+    },
+    "webhookEnabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "webhookSecret": {
+      "type": "string"
+    },
+    "webhookEvents": {
+      "type": "json"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "bookings",
+  "info": {
+    "singularName": "booking",
+    "pluralName": "bookings",
+    "displayName": "Booking Submission",
+    "description": "Book-a-call form submissions from the website"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": { "type": "string", "required": true },
+    "email": { "type": "string", "required": true },
+    "phone": { "type": "string", "required": true },
+    "date": { "type": "date", "required": true },
+    "time": { "type": "time", "required": true }
+  }
+}

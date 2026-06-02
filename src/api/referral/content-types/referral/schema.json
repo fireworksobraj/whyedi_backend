@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "referrals",
+  "info": {
+    "singularName": "referral",
+    "pluralName": "referrals",
+    "displayName": "Referral Submission",
+    "description": "Referral form submissions from the website"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "firstName": { "type": "string", "required": true },
+    "lastName": { "type": "string", "required": true },
+    "phone": { "type": "string", "required": true },
+    "email": { "type": "string" },
+    "loanPurpose": {
+      "type": "enumeration",
+      "enum": ["purchase", "refinance"],
+      "required": true
+    },
+    "referralFirstName": { "type": "string", "required": true },
+    "referralLastName": { "type": "string", "required": true },
+    "referralPhone": { "type": "string", "required": true },
+    "referralEmail": { "type": "string", "required": true }
+  }
+}

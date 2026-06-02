@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "loan_types",
+  "info": {
+    "singularName": "loan-type",
+    "pluralName": "loan-types",
+    "displayName": "Loan Type",
+    "description": "Mortgage product cards shown on the homepage"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "icon": {
+      "type": "string",
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}

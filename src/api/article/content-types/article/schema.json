@@ -73,6 +73,12 @@
     "noIndex": {
       "type": "boolean",
       "default": false
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "article"
     }
   }
 }

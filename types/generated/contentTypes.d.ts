@@ -455,6 +455,7 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
     author: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Edi Shek'>;
     canonicalUrl: Schema.Attribute.String;
     category: Schema.Attribute.String;
+    comments: Schema.Attribute.Relation<'oneToMany', 'api::comment.comment'>;
     content: Schema.Attribute.RichText;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -512,6 +513,39 @@ export interface ApiBookingBooking extends Struct.CollectionTypeSchema {
     phone: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     time: Schema.Attribute.Time & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiCommentComment extends Struct.CollectionTypeSchema {
+  collectionName: 'comments';
+  info: {
+    description: 'User comments on articles';
+    displayName: 'Comment';
+    pluralName: 'comments';
+    singularName: 'comment';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    article: Schema.Attribute.Relation<'manyToOne', 'api::article.article'>;
+    authorEmail: Schema.Attribute.Email;
+    authorName: Schema.Attribute.String & Schema.Attribute.Required;
+    content: Schema.Attribute.Text & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    isApproved: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::comment.comment'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -607,20 +641,14 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
     crmUrlTx: Schema.Attribute.String;
     email: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'edi@eywamortgage.com'>;
-    eywaAddress: Schema.Attribute.Text &
-      Schema.Attribute.DefaultTo<'5559 S Sossaman Rd, Bldg 1 Ste 101\nMesa, AZ 85212'>;
-    eywaCell: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'+1-346-610-0555'>;
-    eywaEmail: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'edi@eywamortgage.com'>;
-    eywaLicenseText: Schema.Attribute.Text &
-      Schema.Attribute.DefaultTo<'Licensed in: AL, AZ (LO-2010950), CO, CT, FL (LO140551), LA, MO, OR, PA, TN, TX, CA (DFPI216981), VA & WA (MLO-216981)'>;
-    eywaName: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'EYWA Mortgage'>;
-    eywaNmls: Schema.Attribute.String & Schema.Attribute.DefaultTo<'1660690'>;
-    eywaTollFree: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'+1-888-886-1555'>;
     facebookUrl: Schema.Attribute.String;
+    footerLogo: Schema.Attribute.String;
+    googleAnalyticsId: Schema.Attribute.String;
+    headerLogo: Schema.Attribute.String;
+    heroSubtitle: Schema.Attribute.Text &
+      Schema.Attribute.DefaultTo<'Expert mortgage solutions for a smooth relocation process.'>;
+    heroTitle: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Move Smarter, Close Faster'>;
     instagramUrl: Schema.Attribute.String;
     linkedinUrl: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -633,6 +661,10 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
     phone: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'+1-346-610-0555'>;
     publishedAt: Schema.Attribute.DateTime;
+    seoDescription: Schema.Attribute.Text &
+      Schema.Attribute.DefaultTo<'Expert mortgage solutions and competitive rates.'>;
+    seoTitle: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Edi Shek Mortgage'>;
     siteName: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'Edi Shek Mortgage'>;
     tiktokUrl: Schema.Attribute.String;
@@ -646,19 +678,6 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
     webhookEvents: Schema.Attribute.JSON;
     webhookSecret: Schema.Attribute.String;
     webhookUrl: Schema.Attribute.String;
-    zapaAddress: Schema.Attribute.Text &
-      Schema.Attribute.DefaultTo<'1601 Industrial Blvd, Ste 3019\nSugar Land, TX 77478'>;
-    zapaCell: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'+1-832-977-4499'>;
-    zapaEmail: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'rigel@zapamortgage.com'>;
-    zapaLicenseText: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'Licensed in: TX'>;
-    zapaName: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'ZAPA Mortgage'>;
-    zapaNmls: Schema.Attribute.String & Schema.Attribute.DefaultTo<'357630'>;
-    zapaTollFree: Schema.Attribute.String &
-      Schema.Attribute.DefaultTo<'855-WHY-ZAPA'>;
   };
 }
 
@@ -776,8 +795,8 @@ export interface ApiStateLicenseStateLicense
     draftAndPublish: false;
   };
   attributes: {
-    company: Schema.Attribute.Enumeration<['EYWA', 'ZAPA']> &
-      Schema.Attribute.Required;
+    applyLink: Schema.Attribute.String;
+    company: Schema.Attribute.String & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1353,6 +1372,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::article.article': ApiArticleArticle;
       'api::booking.booking': ApiBookingBooking;
+      'api::comment.comment': ApiCommentComment;
       'api::company.company': ApiCompanyCompany;
       'api::faq.faq': ApiFaqFaq;
       'api::global.global': ApiGlobalGlobal;

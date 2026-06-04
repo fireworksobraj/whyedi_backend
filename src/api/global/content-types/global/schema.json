@@ -50,64 +50,34 @@
     "crmUrlOther": {
       "type": "string"
     },
-    "eywaNmls": {
-      "type": "string",
-      "default": "1660690"
-    },
-    "eywaName": {
-      "type": "string",
-      "default": "EYWA Mortgage"
-    },
-    "eywaAddress": {
-      "type": "text",
-      "default": "5559 S Sossaman Rd, Bldg 1 Ste 101\nMesa, AZ 85212"
-    },
-    "eywaTollFree": {
-      "type": "string",
-      "default": "+1-888-886-1555"
-    },
-    "eywaCell": {
-      "type": "string",
-      "default": "+1-346-610-0555"
-    },
-    "eywaEmail": {
-      "type": "string",
-      "default": "edi@eywamortgage.com"
-    },
-    "eywaLicenseText": {
-      "type": "text",
-      "default": "Licensed in: AL, AZ (LO-2010950), CO, CT, FL (LO140551), LA, MO, OR, PA, TN, TX, CA (DFPI216981), VA & WA (MLO-216981)"
-    },
-    "zapaNmls": {
-      "type": "string",
-      "default": "357630"
-    },
-    "zapaName": {
-      "type": "string",
-      "default": "ZAPA Mortgage"
-    },
-    "zapaAddress": {
-      "type": "text",
-      "default": "1601 Industrial Blvd, Ste 3019\nSugar Land, TX 77478"
-    },
-    "zapaTollFree": {
-      "type": "string",
-      "default": "855-WHY-ZAPA"
-    },
-    "zapaCell": {
-      "type": "string",
-      "default": "+1-832-977-4499"
-    },
-    "zapaEmail": {
-      "type": "string",
-      "default": "rigel@zapamortgage.com"
-    },
-    "zapaLicenseText": {
-      "type": "string",
-      "default": "Licensed in: TX"
-    },
+
     "webhookUrl": {
       "type": "string"
+    },
+    "seoTitle": {
+      "type": "string",
+      "default": "Edi Shek Mortgage"
+    },
+    "seoDescription": {
+      "type": "text",
+      "default": "Expert mortgage solutions and competitive rates."
+    },
+    "googleAnalyticsId": {
+      "type": "string"
+    },
+    "headerLogo": {
+      "type": "string"
+    },
+    "footerLogo": {
+      "type": "string"
+    },
+    "heroTitle": {
+      "type": "string",
+      "default": "Move Smarter, Close Faster"
+    },
+    "heroSubtitle": {
+      "type": "text",
+      "default": "Expert mortgage solutions for a smooth relocation process."
     },
     "webhookEnabled": {
       "type": "boolean",

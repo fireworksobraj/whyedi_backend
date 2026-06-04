@@ -28,9 +28,11 @@
       "type": "string"
     },
     "company": {
-      "type": "enumeration",
-      "enum": ["EYWA", "ZAPA"],
+      "type": "string",
       "required": true
+    },
+    "applyLink": {
+      "type": "string"
     },
     "order": {
       "type": "integer",

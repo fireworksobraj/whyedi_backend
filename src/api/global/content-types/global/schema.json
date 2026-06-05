@@ -32,17 +32,9 @@
       "type": "string",
       "default": "9015996"
     },
-    "facebookUrl": {
-      "type": "string"
-    },
-    "instagramUrl": {
-      "type": "string"
-    },
-    "linkedinUrl": {
-      "type": "string"
-    },
-    "tiktokUrl": {
-      "type": "string"
+    "socialLinks": {
+      "type": "json",
+      "default": []
     },
     "crmUrlTx": {
       "type": "string"

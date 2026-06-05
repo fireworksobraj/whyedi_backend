@@ -641,7 +641,6 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
     crmUrlTx: Schema.Attribute.String;
     email: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'edi@eywamortgage.com'>;
-    facebookUrl: Schema.Attribute.String;
     footerLogo: Schema.Attribute.String;
     googleAnalyticsId: Schema.Attribute.String;
     headerLogo: Schema.Attribute.String;
@@ -649,8 +648,6 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
       Schema.Attribute.DefaultTo<'Expert mortgage solutions for a smooth relocation process.'>;
     heroTitle: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'Move Smarter, Close Faster'>;
-    instagramUrl: Schema.Attribute.String;
-    linkedinUrl: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -667,7 +664,7 @@ export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
       Schema.Attribute.DefaultTo<'Edi Shek Mortgage'>;
     siteName: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'Edi Shek Mortgage'>;
-    tiktokUrl: Schema.Attribute.String;
+    socialLinks: Schema.Attribute.JSON & Schema.Attribute.DefaultTo<[]>;
     trecLicense: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'9015996'>;
     updatedAt: Schema.Attribute.DateTime;

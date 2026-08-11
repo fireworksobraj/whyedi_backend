@@ -259,7 +259,10 @@ module.exports = {
         .findOne({ where: { type: 'public' } });
 
       if (publicRole) {
-        const actions = ['api::company.company.find', 'api::company.company.findOne'];
+        const actions = [
+          'api::company.company.find', 'api::company.company.findOne',
+          'api::cta.cta.find', 'api::cta.cta.findOne'
+        ];
         for (const action of actions) {
           const existing = await strapi.db
             .query('plugin::users-permissions.permission')

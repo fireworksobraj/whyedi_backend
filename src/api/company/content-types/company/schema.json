@@ -47,6 +47,9 @@
     "licenseText": {
       "type": "text"
     },
+    "applyLink": {
+      "type": "string"
+    },
     "order": {
       "type": "integer",
       "default": 0

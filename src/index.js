@@ -261,7 +261,9 @@ module.exports = {
       if (publicRole) {
         const actions = [
           'api::company.company.find', 'api::company.company.findOne',
-          'api::cta.cta.find', 'api::cta.cta.findOne'
+          'api::cta.cta.find', 'api::cta.cta.findOne',
+          'api::webinar.webinar.find', 'api::webinar.webinar.findOne',
+          'api::webinar-registration.webinar-registration.create'
         ];
         for (const action of actions) {
           const existing = await strapi.db

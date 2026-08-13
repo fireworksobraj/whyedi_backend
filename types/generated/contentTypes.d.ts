@@ -892,6 +892,90 @@ export interface ApiTestimonialTestimonial extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiWebinarRegistrationWebinarRegistration
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'webinar_registrations';
+  info: {
+    description: 'User registrations for webinars';
+    displayName: 'Webinar Registration';
+    pluralName: 'webinar-registrations';
+    singularName: 'webinar-registration';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::webinar-registration.webinar-registration'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    phone: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    webinar: Schema.Attribute.Relation<'manyToOne', 'api::webinar.webinar'>;
+  };
+}
+
+export interface ApiWebinarWebinar extends Struct.CollectionTypeSchema {
+  collectionName: 'webinars';
+  info: {
+    description: 'Hosted webinar events';
+    displayName: 'Webinar';
+    pluralName: 'webinars';
+    singularName: 'webinar';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    agenda: Schema.Attribute.RichText;
+    coverImage: Schema.Attribute.Media<'images'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date: Schema.Attribute.Date & Schema.Attribute.Required;
+    description: Schema.Attribute.Text;
+    duration: Schema.Attribute.String;
+    keyTakeaways: Schema.Attribute.JSON;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::webinar.webinar'
+    > &
+      Schema.Attribute.Private;
+    maxAttendees: Schema.Attribute.Integer;
+    meetingLink: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    registrations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::webinar-registration.webinar-registration'
+    >;
+    replayLink: Schema.Attribute.String;
+    slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
+    speakerBio: Schema.Attribute.Text;
+    speakerImage: Schema.Attribute.Media<'images'>;
+    speakerName: Schema.Attribute.String;
+    speakerRole: Schema.Attribute.String;
+    status: Schema.Attribute.Enumeration<['Upcoming', 'Live', 'Completed']> &
+      Schema.Attribute.DefaultTo<'Upcoming'>;
+    time: Schema.Attribute.Time & Schema.Attribute.Required;
+    timeZone: Schema.Attribute.String & Schema.Attribute.DefaultTo<'EST'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -1415,6 +1499,8 @@ declare module '@strapi/strapi' {
       'api::referral.referral': ApiReferralReferral;
       'api::state-license.state-license': ApiStateLicenseStateLicense;
       'api::testimonial.testimonial': ApiTestimonialTestimonial;
+      'api::webinar-registration.webinar-registration': ApiWebinarRegistrationWebinarRegistration;
+      'api::webinar.webinar': ApiWebinarWebinar;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

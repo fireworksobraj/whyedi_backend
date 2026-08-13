@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "webinar_registrations",
+  "info": {
+    "singularName": "webinar-registration",
+    "pluralName": "webinar-registrations",
+    "displayName": "Webinar Registration",
+    "description": "User registrations for webinars"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": { "type": "string", "required": true },
+    "email": { "type": "string", "required": true },
+    "phone": { "type": "string", "required": true },
+    "webinar": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::webinar.webinar",
+      "inversedBy": "registrations"
+    }
+  }
+}

@@ -746,6 +746,63 @@ export interface ApiLoanTypeLoanType extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiMarketBriefMarketBrief extends Struct.CollectionTypeSchema {
+  collectionName: 'market_briefs';
+  info: {
+    description: 'Daily market briefs published to /news \u2014 generated from real industry sources';
+    displayName: 'Market Brief (News)';
+    pluralName: 'market-briefs';
+    singularName: 'market-brief';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    aiAssisted: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    author: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Edi Shek'>;
+    authorTitle: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'NMLS# 216981'>;
+    briefDate: Schema.Attribute.Date;
+    canonicalUrl: Schema.Attribute.String;
+    category: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Daily Brief'>;
+    content: Schema.Attribute.RichText;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    excerpt: Schema.Attribute.Text & Schema.Attribute.Required;
+    featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    featuredImage: Schema.Attribute.Media<'images'>;
+    keyStats: Schema.Attribute.JSON;
+    keywords: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::market-brief.market-brief'
+    > &
+      Schema.Attribute.Private;
+    metaDescription: Schema.Attribute.Text;
+    metaTitle: Schema.Attribute.String;
+    noIndex: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    ogDescription: Schema.Attribute.Text;
+    ogImage: Schema.Attribute.Media<'images'>;
+    ogTitle: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    readTime: Schema.Attribute.String;
+    slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
+    sources: Schema.Attribute.JSON;
+    status: Schema.Attribute.Enumeration<['published', 'draft']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'published'>;
+    tags: Schema.Attribute.String;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    viewCount: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+  };
+}
+
 export interface ApiProcessStepProcessStep extends Struct.CollectionTypeSchema {
   collectionName: 'process_steps';
   info: {
@@ -812,6 +869,79 @@ export interface ApiReferralReferral extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface ApiScriptScript extends Struct.CollectionTypeSchema {
+  collectionName: 'scripts';
+  info: {
+    description: 'Sales scripts library published to /scripts';
+    displayName: 'Script';
+    pluralName: 'scripts';
+    singularName: 'script';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    aiAssisted: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    author: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Edi Shek'>;
+    authorTitle: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'NMLS# 216981'>;
+    canonicalUrl: Schema.Attribute.String;
+    category: Schema.Attribute.Enumeration<
+      [
+        'Cold Calling',
+        'Objection Handling',
+        'Follow-up',
+        'Listing Presentation',
+        'Buyer Consultation',
+        'Expired Listings',
+        'FSBO Scripts',
+        'Door Knocking',
+        'Sphere of Influence',
+      ]
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Cold Calling'>;
+    content: Schema.Attribute.RichText;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    difficulty: Schema.Attribute.Enumeration<
+      ['Beginner', 'Intermediate', 'Advanced']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Intermediate'>;
+    estimatedTime: Schema.Attribute.String;
+    featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    keywords: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::script.script'
+    > &
+      Schema.Attribute.Private;
+    metaDescription: Schema.Attribute.Text;
+    metaTitle: Schema.Attribute.String;
+    noIndex: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    ogDescription: Schema.Attribute.Text;
+    ogImage: Schema.Attribute.Media<'images'>;
+    ogTitle: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
+    status: Schema.Attribute.Enumeration<['published', 'draft']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'published'>;
+    tags: Schema.Attribute.String;
+    thumbnail: Schema.Attribute.Media<'images'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    useCase: Schema.Attribute.Text;
+    viewCount: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
   };
 }
 
@@ -1495,8 +1625,10 @@ declare module '@strapi/strapi' {
       'api::faq.faq': ApiFaqFaq;
       'api::global.global': ApiGlobalGlobal;
       'api::loan-type.loan-type': ApiLoanTypeLoanType;
+      'api::market-brief.market-brief': ApiMarketBriefMarketBrief;
       'api::process-step.process-step': ApiProcessStepProcessStep;
       'api::referral.referral': ApiReferralReferral;
+      'api::script.script': ApiScriptScript;
       'api::state-license.state-license': ApiStateLicenseStateLicense;
       'api::testimonial.testimonial': ApiTestimonialTestimonial;
       'api::webinar-registration.webinar-registration': ApiWebinarRegistrationWebinarRegistration;

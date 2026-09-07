@@ -252,7 +252,7 @@ module.exports = {
     }
     console.log('Companies synced successfully.');
 
-    // ── Grant Public role access to company collection ────────────────────────
+    // ── Grant Public role access to publicly-readable collections ─────────────
     try {
       const publicRole = await strapi.db
         .query('plugin::users-permissions.role')
@@ -263,7 +263,11 @@ module.exports = {
           'api::company.company.find', 'api::company.company.findOne',
           'api::cta.cta.find', 'api::cta.cta.findOne',
           'api::webinar.webinar.find', 'api::webinar.webinar.findOne',
-          'api::webinar-registration.webinar-registration.create'
+          'api::webinar-registration.webinar-registration.create',
+          'api::market-brief.market-brief.find', 'api::market-brief.market-brief.findOne',
+          'api::market-brief.market-brief.incrementView',
+          'api::script.script.find', 'api::script.script.findOne',
+          'api::script.script.incrementView'
         ];
         for (const action of actions) {
           const existing = await strapi.db

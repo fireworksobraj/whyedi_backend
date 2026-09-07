@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "newsletter_subscribers",
+  "info": {
+    "singularName": "newsletter-subscriber",
+    "pluralName": "newsletter-subscribers",
+    "displayName": "Newsletter Subscriber",
+    "description": "Email subscribers collected from the News/Scripts sidebar widget"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "email": {
+      "type": "email",
+      "required": true,
+      "unique": true
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["confirmed", "unsubscribed"],
+      "default": "confirmed",
+      "required": true
+    },
+    "source": {
+      "type": "string",
+      "description": "Where the subscriber signed up, e.g. news-sidebar, scripts-sidebar, footer"
+    },
+    "unsubscribeToken": {
+      "type": "string",
+      "unique": true
+    }
+  }
+}

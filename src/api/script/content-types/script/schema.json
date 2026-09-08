@@ -29,18 +29,7 @@
       "type": "richtext"
     },
     "category": {
-      "type": "enumeration",
-      "enum": [
-        "Cold Calling",
-        "Objection Handling",
-        "Follow-up",
-        "Listing Presentation",
-        "Buyer Consultation",
-        "Expired Listings",
-        "FSBO Scripts",
-        "Door Knocking",
-        "Sphere of Influence"
-      ],
+      "type": "string",
       "default": "Cold Calling",
       "required": true
     },

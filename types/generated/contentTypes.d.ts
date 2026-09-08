@@ -803,6 +803,43 @@ export interface ApiMarketBriefMarketBrief extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiNewsletterSubscriberNewsletterSubscriber
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'newsletter_subscribers';
+  info: {
+    description: 'Email subscribers collected from the News/Scripts sidebar widget';
+    displayName: 'Newsletter Subscriber';
+    pluralName: 'newsletter-subscribers';
+    singularName: 'newsletter-subscriber';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::newsletter-subscriber.newsletter-subscriber'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    source: Schema.Attribute.String;
+    status: Schema.Attribute.Enumeration<['confirmed', 'unsubscribed']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'confirmed'>;
+    unsubscribeToken: Schema.Attribute.String & Schema.Attribute.Unique;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiProcessStepProcessStep extends Struct.CollectionTypeSchema {
   collectionName: 'process_steps';
   info: {
@@ -889,19 +926,7 @@ export interface ApiScriptScript extends Struct.CollectionTypeSchema {
     authorTitle: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'NMLS# 216981'>;
     canonicalUrl: Schema.Attribute.String;
-    category: Schema.Attribute.Enumeration<
-      [
-        'Cold Calling',
-        'Objection Handling',
-        'Follow-up',
-        'Listing Presentation',
-        'Buyer Consultation',
-        'Expired Listings',
-        'FSBO Scripts',
-        'Door Knocking',
-        'Sphere of Influence',
-      ]
-    > &
+    category: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'Cold Calling'>;
     content: Schema.Attribute.RichText;
@@ -1626,6 +1651,7 @@ declare module '@strapi/strapi' {
       'api::global.global': ApiGlobalGlobal;
       'api::loan-type.loan-type': ApiLoanTypeLoanType;
       'api::market-brief.market-brief': ApiMarketBriefMarketBrief;
+      'api::newsletter-subscriber.newsletter-subscriber': ApiNewsletterSubscriberNewsletterSubscriber;
       'api::process-step.process-step': ApiProcessStepProcessStep;
       'api::referral.referral': ApiReferralReferral;
       'api::script.script': ApiScriptScript;

@@ -1,0 +1,125 @@
+{
+  "kind": "collectionType",
+  "collectionName": "deals",
+  "info": {
+    "singularName": "deal",
+    "pluralName": "deals",
+    "displayName": "Property Deal",
+    "description": "Special financing property deals curated by Edi Shek and partner realtors"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "address": {
+      "type": "string",
+      "required": true
+    },
+    "city": {
+      "type": "string",
+      "required": true
+    },
+    "state": {
+      "type": "string",
+      "default": "TX"
+    },
+    "zip": {
+      "type": "string"
+    },
+    "price": {
+      "type": "decimal",
+      "required": true
+    },
+    "beds": {
+      "type": "decimal"
+    },
+    "baths": {
+      "type": "decimal"
+    },
+    "sqft": {
+      "type": "integer"
+    },
+    "features": {
+      "type": "text"
+    },
+    "contributionBadge": {
+      "type": "string"
+    },
+    "opt1Title": {
+      "type": "string",
+      "default": "Option 1: Lower Starting Payment"
+    },
+    "opt1FundsAtClosing": {
+      "type": "string"
+    },
+    "opt1Savings": {
+      "type": "string"
+    },
+    "opt1Rates": {
+      "type": "string"
+    },
+    "opt2Title": {
+      "type": "string",
+      "default": "Option 2: Low Cash to Close"
+    },
+    "opt2FundsAtClosing": {
+      "type": "string"
+    },
+    "opt2Rates": {
+      "type": "string"
+    },
+    "posterImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "posterUrl": {
+      "type": "string"
+    },
+    "posters": {
+      "type": "json"
+    },
+    "propertyType": {
+      "type": "string",
+      "default": "Single Family"
+    },
+    "propertyImages": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": ["images"]
+    },
+    "disclaimer": {
+      "type": "text"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["active", "pending", "sold", "archived"],
+      "default": "active",
+      "required": true
+    },
+    "featured": {
+      "type": "boolean",
+      "default": false
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    },
+    "agent": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::partner-agent.partner-agent",
+      "inversedBy": "deals"
+    }
+  }
+}

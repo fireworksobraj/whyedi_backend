@@ -628,6 +628,70 @@ export interface ApiCtaCta extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiDealDeal extends Struct.CollectionTypeSchema {
+  collectionName: 'deals';
+  info: {
+    description: 'Special financing property deals curated by Edi Shek and partner realtors';
+    displayName: 'Property Deal';
+    pluralName: 'deals';
+    singularName: 'deal';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    address: Schema.Attribute.String & Schema.Attribute.Required;
+    agent: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::partner-agent.partner-agent'
+    >;
+    baths: Schema.Attribute.Decimal;
+    beds: Schema.Attribute.Decimal;
+    city: Schema.Attribute.String & Schema.Attribute.Required;
+    contributionBadge: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    disclaimer: Schema.Attribute.Text;
+    featured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    features: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::deal.deal'> &
+      Schema.Attribute.Private;
+    opt1FundsAtClosing: Schema.Attribute.String;
+    opt1Rates: Schema.Attribute.String;
+    opt1Savings: Schema.Attribute.String;
+    opt1Title: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Option 1: Lower Starting Payment'>;
+    opt2FundsAtClosing: Schema.Attribute.String;
+    opt2Rates: Schema.Attribute.String;
+    opt2Title: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Option 2: Low Cash to Close'>;
+    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    posterImage: Schema.Attribute.Media<'images'>;
+    posters: Schema.Attribute.JSON;
+    posterUrl: Schema.Attribute.String;
+    price: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    propertyImages: Schema.Attribute.Media<'images', true>;
+    propertyType: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Single Family'>;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
+    sqft: Schema.Attribute.Integer;
+    state: Schema.Attribute.String & Schema.Attribute.DefaultTo<'TX'>;
+    status: Schema.Attribute.Enumeration<
+      ['active', 'pending', 'sold', 'archived']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'active'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    zip: Schema.Attribute.String;
+  };
+}
+
 export interface ApiFaqFaq extends Struct.CollectionTypeSchema {
   collectionName: 'faqs';
   info: {
@@ -834,6 +898,48 @@ export interface ApiNewsletterSubscriberNewsletterSubscriber
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'confirmed'>;
     unsubscribeToken: Schema.Attribute.String & Schema.Attribute.Unique;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPartnerAgentPartnerAgent
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'partner_agents';
+  info: {
+    description: 'Partner listing agents co-branding deals with Edi Shek';
+    displayName: 'Partner Agent';
+    pluralName: 'partner-agents';
+    singularName: 'partner-agent';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    bio: Schema.Attribute.Text;
+    brokerage: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Realty'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    deals: Schema.Attribute.Relation<'oneToMany', 'api::deal.deal'>;
+    email: Schema.Attribute.Email;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::partner-agent.partner-agent'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    phone: Schema.Attribute.String;
+    photo: Schema.Attribute.Media<'images'>;
+    photoUrl: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    title: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'REALTOR\u00AE'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1647,11 +1753,13 @@ declare module '@strapi/strapi' {
       'api::comment.comment': ApiCommentComment;
       'api::company.company': ApiCompanyCompany;
       'api::cta.cta': ApiCtaCta;
+      'api::deal.deal': ApiDealDeal;
       'api::faq.faq': ApiFaqFaq;
       'api::global.global': ApiGlobalGlobal;
       'api::loan-type.loan-type': ApiLoanTypeLoanType;
       'api::market-brief.market-brief': ApiMarketBriefMarketBrief;
       'api::newsletter-subscriber.newsletter-subscriber': ApiNewsletterSubscriberNewsletterSubscriber;
+      'api::partner-agent.partner-agent': ApiPartnerAgentPartnerAgent;
       'api::process-step.process-step': ApiProcessStepProcessStep;
       'api::referral.referral': ApiReferralReferral;
       'api::script.script': ApiScriptScript;

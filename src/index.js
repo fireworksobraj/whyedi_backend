@@ -252,6 +252,238 @@ module.exports = {
     }
     console.log('Companies synced successfully.');
 
+    // ── Seed Partner Agents & Deals ──────────────────────────────────────────
+    try {
+      const agentCount = await strapi.db.query('api::partner-agent.partner-agent').count();
+      let saadAgentDocId = null;
+
+      if (agentCount === 0) {
+        console.log('Seeding partner agents...');
+        const initialAgents = [
+          {
+            name: 'Saad Wadiwala',
+            slug: 'saad-wadiwala',
+            brokerage: 'Third Coast Realty LLC',
+            title: 'REALTOR®',
+            phone: '281-704-8676',
+            email: 'saad@thirdcoast.team',
+            photoUrl: '/images/agents/agent-placeholder.svg',
+            isActive: true,
+            order: 10,
+          },
+          {
+            name: 'Zubair Khatri',
+            slug: 'zubair-khatri',
+            brokerage: 'Realty Executives',
+            title: 'REALTOR®',
+            phone: '832-555-0101',
+            email: 'zubair@example.com',
+            photoUrl: '/images/agents/agent-placeholder.svg',
+            isActive: true,
+            order: 20,
+          },
+          {
+            name: 'Shawn Shakir',
+            slug: 'shawn-shakir',
+            brokerage: 'eXp Realty',
+            title: 'REALTOR®',
+            phone: '832-555-0102',
+            email: 'shawn@example.com',
+            photoUrl: '/images/agents/agent-placeholder.svg',
+            isActive: true,
+            order: 30,
+          },
+          {
+            name: 'Ali Harya',
+            slug: 'ali-harya',
+            brokerage: 'Compass Real Estate',
+            title: 'REALTOR®',
+            phone: '832-555-0103',
+            email: 'ali@example.com',
+            photoUrl: '/images/agents/agent-placeholder.svg',
+            isActive: true,
+            order: 40,
+          },
+        ];
+
+        for (const ag of initialAgents) {
+          const created = await strapi.documents('api::partner-agent.partner-agent').create({
+            data: ag,
+            status: 'published',
+          });
+          if (ag.slug === 'saad-wadiwala') {
+            saadAgentDocId = created.documentId;
+          }
+        }
+        console.log('Seeded initial partner agents successfully.');
+      } else {
+        const existingSaad = await strapi.documents('api::partner-agent.partner-agent').findMany({
+          filters: { slug: { $eq: 'saad-wadiwala' } },
+          status: 'published',
+        });
+        if (existingSaad.length > 0) {
+          saadAgentDocId = existingSaad[0].documentId;
+        }
+      }
+
+      const dealCount = await strapi.db.query('api::deal.deal').count();
+      if (dealCount === 0) {
+        console.log('Seeding initial property deals...');
+        const initialDeals = [
+          {
+            title: '14015 Susan Ct',
+            slug: '14015-susan-ct-sugar-land-tx',
+            address: '14015 Susan Ct',
+            city: 'Sugar Land',
+            state: 'TX',
+            zip: '77498',
+            price: 278000,
+            beds: 3,
+            baths: 2,
+            sqft: 1516,
+            propertyType: 'Single Family',
+            features: 'Cul-de-sac | Sparkling Pool | Updated Kitchen | Flex Room | 2-Car Garage',
+            contributionBadge: 'BOTH OPTIONS INCLUDE $8,340 DPA + $8,336 CLOSING COST CONTRIBUTION*',
+            opt1Title: 'Option 1: Lower Starting Payment',
+            opt1FundsAtClosing: '$6,519.83*',
+            opt1Savings: 'Save $348.63/mo* - Year 1 | Save $178.49/mo* - Year 2',
+            opt1Rates: '4.875% / 5.875% / 6.875% | 7.209% APR',
+            opt2Title: 'Option 2: Low Cash to Close',
+            opt2FundsAtClosing: '$194.33*',
+            opt2Rates: '6.875% Rate | 7.238% APR',
+            posterUrl: '/images/deals/14015-susan-ct.jpg',
+            posters: ['/images/deals/14015-susan-ct.jpg'],
+            status: 'active',
+            featured: true,
+            order: 10,
+            agent: saadAgentDocId,
+          },
+          {
+            title: '29118 Lantana Ridge Ct',
+            slug: '29118-lantana-ridge-ct-fulshear-tx',
+            address: '29118 Lantana Ridge Ct',
+            city: 'Fulshear',
+            state: 'TX',
+            zip: '77441',
+            price: 435000,
+            beds: 4,
+            baths: 3,
+            sqft: 2615,
+            propertyType: 'Single Family',
+            features: 'Cross Creek Ranch | Perry Home | Home Office | Covered Patio | Built 2019',
+            contributionBadge: 'BOTH OPTIONS INCLUDE $13,050 DPA + $13,048 CLOSING COST CONTRIBUTION*',
+            opt1Title: 'Option 1: Lower Starting Payment',
+            opt1FundsAtClosing: '$8,775.44*',
+            opt1Savings: 'Save $545.52/mo* - Year 1 | Save $279.30/mo* - Year 2',
+            opt1Rates: '4.875% / 5.875% / 6.875% | 7.197% APR',
+            opt2Title: 'Option 2: Low Cash / Refund',
+            opt2FundsAtClosing: 'REFUND $1,122.40*',
+            opt2Rates: '6.875% Rate | 7.208% APR',
+            posterUrl: '/images/deals/29118-lantana-ridge-ct.jpg',
+            posters: ['/images/deals/29118-lantana-ridge-ct.jpg'],
+            status: 'active',
+            featured: true,
+            order: 20,
+            agent: saadAgentDocId,
+          },
+          {
+            title: '5012 Pismo Ray Dr',
+            slug: '5012-pismo-ray-dr-katy-tx',
+            address: '5012 Pismo Ray Dr',
+            city: 'Katy',
+            state: 'TX',
+            zip: '77493',
+            price: 285000,
+            beds: 3,
+            baths: 2,
+            sqft: 1488,
+            propertyType: 'Single Family',
+            features: 'Sunterra Community | Modern 2023 Home | Open Living | Covered Patio | 2-Car Garage',
+            contributionBadge: 'BOTH OPTIONS INCLUDE $8,550 DPA + $8,550 CLOSING COST CONTRIBUTION*',
+            opt1Title: 'Option 1: Lower Starting Payment',
+            opt1FundsAtClosing: '$7,592.54*',
+            opt1Savings: 'Save $357.41/mo* - Year 1 | Save $182.99/mo* - Year 2',
+            opt1Rates: '4.875% / 5.875% / 6.875% | 7.208% APR',
+            opt2Title: 'Option 2: Low Cash at Closing',
+            opt2FundsAtClosing: '$1,107.77*',
+            opt2Rates: '6.875% Rate | 7.236% APR',
+            posterUrl: '/images/deals/5012-pismo-ray-dr.jpg',
+            posters: ['/images/deals/5012-pismo-ray-dr.jpg'],
+            status: 'active',
+            featured: true,
+            order: 30,
+            agent: saadAgentDocId,
+          },
+          {
+            title: '1902 Kings Arms Way',
+            slug: '1902-kings-arms-way-katy-tx',
+            address: '1902 Kings Arms Way',
+            city: 'Katy',
+            state: 'TX',
+            zip: '77493',
+            price: 255000,
+            beds: 3,
+            baths: 2.5,
+            sqft: 1851,
+            propertyType: 'Single Family',
+            features: 'Corner Lot | Granite Kitchen | Brick Fireplace | Flex Room | Community Pool',
+            contributionBadge: 'BOTH OPTIONS INCLUDE $7,650 DPA + $7,652 CLOSING COST CONTRIBUTION*',
+            opt1Title: 'Option 1: Lower Starting Payment',
+            opt1FundsAtClosing: '$6,280.23*',
+            opt1Savings: 'Save $319.78/mo* - Year 1 | Save $163.72/mo* - Year 2',
+            opt1Rates: '4.875% / 5.875% / 6.875% | 7.215% APR',
+            opt2Title: 'Option 2: Low Cash at Closing',
+            opt2FundsAtClosing: '$478.05*',
+            opt2Rates: '6.875% Rate | 7.246% APR',
+            posterUrl: '/images/deals/1902-kings-arms-way.jpg',
+            posters: ['/images/deals/1902-kings-arms-way.jpg'],
+            status: 'active',
+            featured: true,
+            order: 40,
+            agent: saadAgentDocId,
+          },
+          {
+            title: '3348 Voda Bend Dr',
+            slug: '3348-voda-bend-dr-katy-tx',
+            address: '3348 Voda Bend Dr',
+            city: 'Katy',
+            state: 'TX',
+            zip: '77493',
+            price: 490000,
+            beds: 4,
+            baths: 3,
+            sqft: 2870,
+            propertyType: 'Single Family',
+            features: "Chef's Kitchen | Game + Media Rooms | Covered Patio | Built 2023",
+            contributionBadge: 'BOTH OPTIONS INCLUDE $14,700 DPA + $14,702 CLOSING COST CONTRIBUTION*',
+            opt1Title: 'Option 1: Lower Starting Payment',
+            opt1FundsAtClosing: '$10,118.37*',
+            opt1Savings: 'Save $614.49/mo* - Year 1 | Save $314.61/mo* - Year 2',
+            opt1Rates: '4.875% / 5.875% / 6.875% | 7.228% APR',
+            opt2Title: 'Option 2: Refund at Closing',
+            opt2FundsAtClosing: 'REFUND $1,030.91*',
+            opt2Rates: '6.875% Rate | 7.228% APR',
+            posterUrl: '/images/deals/3348-voda-bend-dr.jpg',
+            posters: ['/images/deals/3348-voda-bend-dr.jpg'],
+            status: 'active',
+            featured: true,
+            order: 50,
+            agent: saadAgentDocId,
+          },
+        ];
+
+        for (const deal of initialDeals) {
+          await strapi.documents('api::deal.deal').create({
+            data: deal,
+            status: 'published',
+          });
+        }
+        console.log('Seeded 5 initial deals with 1 poster each successfully.');
+      }
+    } catch (e) {
+      console.error('Error seeding agents/deals:', e.message);
+    }
+
     // ── Grant Public role access to publicly-readable collections ─────────────
     try {
       const publicRole = await strapi.db
@@ -267,7 +499,9 @@ module.exports = {
           'api::market-brief.market-brief.find', 'api::market-brief.market-brief.findOne',
           'api::market-brief.market-brief.incrementView',
           'api::script.script.find', 'api::script.script.findOne',
-          'api::script.script.incrementView'
+          'api::script.script.incrementView',
+          'api::partner-agent.partner-agent.find', 'api::partner-agent.partner-agent.findOne',
+          'api::deal.deal.find', 'api::deal.deal.findOne'
         ];
         for (const action of actions) {
           const existing = await strapi.db
@@ -289,7 +523,7 @@ module.exports = {
         }
       }
     } catch (err) {
-      console.error('Could not set company permissions:', err.message);
+      console.error('Could not set public permissions:', err.message);
     }
   },
 };

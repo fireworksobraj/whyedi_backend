@@ -1,0 +1,64 @@
+{
+  "kind": "collectionType",
+  "collectionName": "partner_agents",
+  "info": {
+    "singularName": "partner-agent",
+    "pluralName": "partner-agents",
+    "displayName": "Partner Agent",
+    "description": "Partner listing agents co-branding deals with Edi Shek"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+    "brokerage": {
+      "type": "string",
+      "default": "Realty"
+    },
+    "title": {
+      "type": "string",
+      "default": "REALTOR®"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "photo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "photoUrl": {
+      "type": "string"
+    },
+    "bio": {
+      "type": "text"
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    },
+    "deals": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::deal.deal",
+      "mappedBy": "agent"
+    }
+  }
+}
